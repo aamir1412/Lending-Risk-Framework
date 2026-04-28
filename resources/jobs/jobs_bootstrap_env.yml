@@ -1,0 +1,22 @@
+resources:
+  jobs:
+    bootstrap_env_setup:
+      name: bootstrap-env-setup
+      tasks:
+        - task_key: bootstrap-env-setup
+          notebook_task:
+            notebook_path: ../../src/notebooks/00_setup/00_bootstrap_env.ipynb
+            source: WORKSPACE
+          environment_key: Default
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog_name
+          default: lending_risk_dev
+      run_as:
+        service_principal_name: 218fe94c-9ced-4c9a-ae12-8d521de2e339
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "5"
+      performance_target: PERFORMANCE_OPTIMIZED

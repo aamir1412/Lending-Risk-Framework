@@ -1,0 +1,23 @@
+resources:
+  jobs:
+    all_layers_elt:
+      name: all_layers_elt
+      tasks:
+        - task_key: ingest_bronze
+          run_job_task:
+            job_id: ${resources.jobs.ingest_layer_bronze.id}
+        - task_key: refine_silver
+          depends_on:
+            - task_key: ingest_bronze
+          run_job_task:
+            job_id: ${resources.jobs.refine_layer_silver.id}
+        - task_key: calc_gold
+          depends_on:
+            - task_key: refine_silver
+          run_job_task:
+            job_id: ${resources.jobs.calc_layer_gold.id}
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog_name
+          default: lending_risk_dev
