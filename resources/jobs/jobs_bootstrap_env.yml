@@ -5,7 +5,7 @@ resources:
       tasks:
         - task_key: bootstrap-env-setup
           notebook_task:
-            notebook_path: ../../src/notebooks/00_setup/00_bootstrap_env.ipynb
+            notebook_path: /Repos/aamir.mscse@gmail.com/Lending-Risk-Framework/src/notebooks/00_setup/00_bootstrap_env
             source: WORKSPACE
           environment_key: Default
       queue:
@@ -14,7 +14,7 @@ resources:
         - name: catalog_name
           default: lending_risk_dev
       run_as:
-        service_principal_name: 218fe94c-9ced-4c9a-ae12-8d521de2e339
+        user_name: aamir.mscse@gmail.com
       environments:
         - environment_key: Default
           spec:
