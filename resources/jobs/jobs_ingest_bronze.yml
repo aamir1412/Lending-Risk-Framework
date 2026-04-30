@@ -5,25 +5,25 @@ resources:
       tasks:
         - task_key: ingest_customers
           notebook_task:
-            notebook_path: ../../src/notebooks/01_bronze/ingest_customers.ipynb
+            notebook_path: ../../src/notebooks/01_bronze/ingest_customers
             source: WORKSPACE
         - task_key: ingest_defaulters
           depends_on:
             - task_key: ingest_customers
           notebook_task:
-            notebook_path: ../../src/notebooks/01_bronze/ingest_defaulters.ipynb
+            notebook_path: ../../src/notebooks/01_bronze/ingest_defaulters
             source: WORKSPACE
         - task_key: ingest_loans
           depends_on:
             - task_key: ingest_defaulters
           notebook_task:
-            notebook_path: ../../src/notebooks/01_bronze/ingest_loans.ipynb
+            notebook_path: ../../src/notebooks/01_bronze/ingest_loans
             source: WORKSPACE
         - task_key: ingest_repayments
           depends_on:
             - task_key: ingest_loans
           notebook_task:
-            notebook_path: ../../src/notebooks/01_bronze/ingest_repayments.ipynb
+            notebook_path: ../../src/notebooks/01_bronze/ingest_repayments
             source: WORKSPACE
       queue:
         enabled: true
