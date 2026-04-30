@@ -1,7 +1,7 @@
 resources:
   jobs:
-    all_layers_elt:
-      name: all_layers_elt
+    run_elt_layers_all:
+      name: run_elt_layers_all
       tasks:
         - task_key: ingest_bronze
           run_job_task:
