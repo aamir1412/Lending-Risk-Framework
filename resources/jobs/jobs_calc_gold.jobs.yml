@@ -7,29 +7,39 @@ resources:
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/calc_defaulters_performance.ipynb            
             source: WORKSPACE
-        - task_key: calc_financial_performance
-          depends_on:
-            - task_key: calc_defaulters_performance
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              job_run_id: "{{job.run_id}}" 
+        - task_key: calc_financial_performance           
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/calc_financial_performance.ipynb            
             source: WORKSPACE
-        - task_key: calc_payment_performance
-          depends_on:
-            - task_key: calc_financial_performance
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              job_run_id: "{{job.run_id}}" 
+        - task_key: calc_payment_performance           
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/calc_payment_performance.ipynb            
             source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              job_run_id: "{{job.run_id}}" 
         - task_key: customers_loan_score
-          depends_on:
-            - task_key: calc_payment_performance
+          depends_on:            
+            - task_key: calc_defaulters_performance
+            - task_key: calc_financial_performance
+            - task_key: calc_payment_performance              
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/customers_loan_score.ipynb            
             source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              job_run_id: "{{job.run_id}}" 
       queue:
         enabled: true
       parameters:
         - name: catalog_name
-          default: lending_risk_dev
+          default: ${var.catalog_name}
         - name: job_run_id
           default: "{{job.run_id}}"
       performance_target: PERFORMANCE_OPTIMIZED

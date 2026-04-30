@@ -7,12 +7,17 @@ resources:
           notebook_task:
             notebook_path: ../../src/notebooks/00_setup/00_bootstrap_env.ipynb            
             source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
           environment_key: Default
       queue:
-        enabled: true
+        enabled: true      
       parameters:
         - name: catalog_name
           default: lending_risk_dev
+        - name: raw_path
+          default: abfss://raw@adlsg2lendingdev.dfs.core.windows.net/          
       run_as:
         user_name: aamir.mscse@gmail.com
       environments:
