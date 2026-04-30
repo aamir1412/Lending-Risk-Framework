@@ -41,7 +41,7 @@ targets:
       catalog_name: lending_risk_prod
       storage_account: adlsg2lendingprod
     workspace:
-      host: https://adb-7405613588252539.19.azuredatabricks.net/
+      host: https://adb-7405613588252539.19.azuredatabricks.net
       # We explicitly deploy to /Workspace/Users/aamir.mscse@gmail.com to make sure we only have a single copy.
       root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
 
