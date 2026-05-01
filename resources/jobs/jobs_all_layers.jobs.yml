@@ -17,4 +17,7 @@ resources:
           run_job_task:
             job_id: ${resources.jobs.calc_layer_gold.id}
       queue:
-        enabled: true      
+        enabled: true
+      parameters:
+        - name: catalog_name
+          default: lending_risk_dev
