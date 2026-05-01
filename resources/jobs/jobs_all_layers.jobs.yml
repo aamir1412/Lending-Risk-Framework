@@ -6,18 +6,33 @@ resources:
         - task_key: ingest_bronze
           run_job_task:
             job_id: ${resources.jobs.ingest_layer_bronze.id}
+            # The Parent passes its parameters down to the Child job
+            job_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
         - task_key: refine_silver
           depends_on:
             - task_key: ingest_bronze
           run_job_task:
             job_id: ${resources.jobs.refine_layer_silver.id}
+            job_parameters:
+              catalog_name: ${var.catalog_name}
+
         - task_key: calc_gold
           depends_on:
             - task_key: refine_silver
           run_job_task:
             job_id: ${resources.jobs.calc_layer_gold.id}
+            job_parameters:
+              catalog_name: ${var.catalog_name}
+
       queue:
         enabled: true
+      
+      # Global Job Parameters for the Orchestrator
       parameters:
         - name: catalog_name
-          default: lending_risk_dev
+          default: ${var.catalog_name}
+        - name: raw_path
+          default: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"

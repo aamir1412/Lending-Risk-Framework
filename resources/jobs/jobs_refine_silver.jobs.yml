@@ -1,0 +1,79 @@
+resources:
+  jobs:
+    refine_layer_silver:
+      name: refine_layer_silver
+      tasks:
+        - task_key: ref_loan_grading_scale
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/ref_loan_grading_scale.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+              
+        - task_key: ref_loan_purposes           
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/ref_loan_purposes.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
+        - task_key: ref_score_points_mapping           
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/ref_score_points_mapping.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
+        - task_key: refine_customers
+          depends_on:
+            - task_key: ref_score_points_mapping
+            - task_key: ref_loan_grading_scale
+            - task_key: ref_loan_purposes
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/refine_customers.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
+        - task_key: refine_defaulters
+          depends_on:            
+            - task_key: ref_score_points_mapping
+            - task_key: ref_loan_grading_scale
+            - task_key: ref_loan_purposes
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/refine_defaulters.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
+        - task_key: refine_loans
+          depends_on:
+            - task_key: ref_score_points_mapping
+            - task_key: ref_loan_grading_scale
+            - task_key: ref_loan_purposes
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/refine_loans.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+
+        - task_key: refine_repayments
+          depends_on:
+            - task_key: ref_score_points_mapping
+            - task_key: ref_loan_grading_scale
+            - task_key: ref_loan_purposes
+          notebook_task:
+            notebook_path: ../../src/notebooks/02_silver/refine_repayments.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+      queue:
+        enabled: true      
+      performance_target: PERFORMANCE_OPTIMIZED

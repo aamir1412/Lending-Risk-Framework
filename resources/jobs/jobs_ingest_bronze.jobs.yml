@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    ingest_layer_bronze:
+      name: ingest_layer_bronze
+      tasks:
+        - task_key: ingest_customers
+          notebook_task:
+            notebook_path: ../../src/notebooks/01_bronze/ingest_customers.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+              job_run_id: "{{job.run_id}}" 
+
+        - task_key: ingest_defaulters           
+          notebook_task:
+            notebook_path: ../../src/notebooks/01_bronze/ingest_defaulters.ipynb
+            source: WORKSPACE              
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+              job_run_id: "{{job.run_id}}" 
+
+        - task_key: ingest_loans           
+          notebook_task:
+            notebook_path: ../../src/notebooks/01_bronze/ingest_loans.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+              job_run_id: "{{job.run_id}}" 
+              
+        - task_key: ingest_repayments          
+          notebook_task:
+            notebook_path: ../../src/notebooks/01_bronze/ingest_repayments.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
+              job_run_id: "{{job.run_id}}" 
+      queue:
+        enabled: true
+      parameters:
+        - name: job_run_id
+          default: "{{job.run_id}}"
+      performance_target: PERFORMANCE_OPTIMIZED
