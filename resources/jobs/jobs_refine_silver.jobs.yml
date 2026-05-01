@@ -9,6 +9,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
               
         - task_key: ref_loan_purposes           
           notebook_task:
@@ -16,6 +17,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
 
         - task_key: ref_score_points_mapping           
           notebook_task:
@@ -23,6 +25,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
 
         - task_key: refine_customers
           depends_on:
@@ -34,6 +37,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
 
         - task_key: refine_defaulters
           depends_on:            
@@ -45,6 +49,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
 
         - task_key: refine_loans
           depends_on:
@@ -56,6 +61,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
 
         - task_key: refine_repayments
           depends_on:
@@ -67,6 +73,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
       queue:
         enabled: true      
       performance_target: PERFORMANCE_OPTIMIZED

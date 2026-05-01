@@ -9,21 +9,27 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
               job_run_id: "{{job.run_id}}" 
+
         - task_key: calc_financial_performance           
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/calc_financial_performance.ipynb            
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
               job_run_id: "{{job.run_id}}" 
+
         - task_key: calc_payment_performance           
           notebook_task:
             notebook_path: ../../src/notebooks/03_gold/calc_payment_performance.ipynb            
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
               job_run_id: "{{job.run_id}}" 
+
         - task_key: customers_loan_score
           depends_on:            
             - task_key: calc_defaulters_performance
@@ -34,6 +40,7 @@ resources:
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+              raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
               job_run_id: "{{job.run_id}}" 
       queue:
         enabled: true
