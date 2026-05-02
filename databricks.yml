@@ -33,6 +33,9 @@ targets:
       storage_account: adlsg2lendingdev      
     workspace:
       host: https://adb-7405614510634503.3.azuredatabricks.net
+
+    run_as:
+      user_name: aamir.mscse@gmail.com
       
   prod:
     mode: production
