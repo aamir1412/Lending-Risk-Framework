@@ -32,7 +32,7 @@ jobs:
         run: databricks current-user me
 
       - name: Validate bundle
-        run: databricks bundle validate --target dev
+        run: databricks bundle validate -t dev
 
       - name:
-        run: databricks bundle deploy -t dev -p dabs
+        run: databricks bundle deploy -t dev 
