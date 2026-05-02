@@ -2,8 +2,6 @@ resources:
   jobs:
     ingest_layer_bronze:
       name: ingest_layer_bronze
-      run_as:
-        service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
       permissions:
         - service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
           level: CAN_MANAGE_RUN
