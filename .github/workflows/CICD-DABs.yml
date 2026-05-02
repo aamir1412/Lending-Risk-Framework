@@ -44,5 +44,5 @@ jobs:
       - name: Validate bundle
         run: databricks bundle validate --target dev
 
-      - name:
-        run: databricks bundle deploy -t dev -p dabs
+      - name: Deploy bundle
+        run: databricks bundle deploy --target dev
