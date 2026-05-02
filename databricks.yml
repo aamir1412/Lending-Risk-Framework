@@ -33,6 +33,12 @@ targets:
       storage_account: adlsg2lendingdev      
     workspace:
       host: https://adb-7405614510634503.3.azuredatabricks.net
+      # ESSENTIAL: Deploy to shared path so Prod-SP can read notebooks
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    
+    # ESSENTIAL: Force the job to execute as the Prod-SP
+    run_as:
+      service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
       
   prod:
     mode: production
