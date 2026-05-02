@@ -2,6 +2,9 @@ resources:
   jobs:
     run_elt_layers_all:
       name: run_elt_layers_all
+      run_as:
+        service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
+        
       tasks:
         - task_key: ingest_bronze
           run_job_task:

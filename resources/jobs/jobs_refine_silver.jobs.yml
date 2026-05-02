@@ -2,6 +2,9 @@ resources:
   jobs:
     refine_layer_silver:
       name: refine_layer_silver
+      run_as:
+        service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
+        
       tasks:
         - task_key: ref_loan_grading_scale
           notebook_task:

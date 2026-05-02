@@ -2,6 +2,9 @@ resources:
   jobs:
     calc_layer_gold:
       name: calc_layer_gold
+      run_as:
+        service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
+        
       tasks:
         - task_key: calc_defaulters_performance
           notebook_task:
