@@ -1,57 +1,40 @@
-# This is a basic workflow to help you get started with Actions
+name: Lending-Risk-Deployment
 
-name: CI/CD Deployment
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  # pull_request: #}
-  #  branches: [ "main" ]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
   id-token: write
   contents: read
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  deploy:
-    # The type of runner that the job will run on
+  deploy-dev:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # This triggers two parallel runs: one for DEV, one for PROD
-        env_name: [DEV, PROD]
-    
-    environment: ${{ matrix.env_name }}
-    # environment: DEV
+    environment: DEV
     env:
       DATABRICKS_AUTH_TYPE: github-oidc
-      DATABRICKS_HOST: ${{ matrix.env_name == 'PROD' && 'https://adb-7405613588252539.19.azuredatabricks.net' || 'https://adb-7405614510634503.3.azuredatabricks.net' }}
-      # CI/CD-SP is the builder for both
+      DATABRICKS_HOST: https://adb-7405614510634503.3.azuredatabricks.net
       DATABRICKS_CLIENT_ID: cbcac33d-d342-4114-8956-65623a114119
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
+      - name: Deploy to DEV
+        run: databricks bundle deploy -t dev
 
-      - name: Who is logged?
-        run: databricks current-user me
-
-      - name: Validate bundle
-        run: databricks bundle validate -t ${{ env.TARGET }}
-        env:
-          TARGET: ${{ matrix.env_name == 'PROD' && 'prod' || 'dev' }}
-
-      - name: Deploy bundle
-        run: databricks bundle deploy -t ${{ env.TARGET }}
-        env:
-          TARGET: ${{ matrix.env_name == 'PROD' && 'prod' || 'dev' }}
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: deploy-dev # Waits for DEV job to finish successfully
+    environment: PROD # This triggers the manual approval gate in GitHub
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: https://adb-7405613588252539.19.azuredatabricks.net
+      DATABRICKS_CLIENT_ID: cbcac33d-d342-4114-8956-65623a114119
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+      - name: Deploy to PROD
+        run: databricks bundle deploy -t prod
