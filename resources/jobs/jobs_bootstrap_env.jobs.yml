@@ -13,8 +13,7 @@ resources:
           environment_key: Default
       queue:
         enabled: true                    
-      run_as:
-        user_name: aamir.mscse@gmail.com
+ 
       environments:
         - environment_key: Default
           spec:
