@@ -27,7 +27,7 @@ jobs:
     env:
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: https://adb-7405614510634503.3.azuredatabricks.net
-      DATABRICKS_CLIENT_ID: 55dd8216-5bae-4dc3-b04d-277ef045b5db
+      DATABRICKS_CLIENT_ID: cbcac33d-d342-4114-8956-65623a114119
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
