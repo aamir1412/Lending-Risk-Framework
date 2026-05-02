@@ -38,7 +38,10 @@ targets:
     # ESSENTIAL: Force the job to execute as the SP for job run
     run_as:
       service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
-      
+    permissions:
+      - level: CAN_MANAGE
+        group_name: users
+
   prod:
     # Override variables for the production environment
     variables:
@@ -51,9 +54,8 @@ targets:
 
     run_as:
       service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
-    
     permissions:
+      - level: CAN_MANAGE
+        group_name: users # <--- SILENCES WARNING
       - user_name: aamir.mscse@gmail.com
-        level: CAN_MANAGE
-      - service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
         level: CAN_MANAGE
