@@ -59,3 +59,14 @@ targets:
         group_name: users # <--- SILENCES WARNING
       - user_name: aamir.mscse@gmail.com
         level: CAN_MANAGE
+
+    permissions:
+      # Grant the execution identity permission to read/run the code
+      - service_principal_name: 55dd8216-5bae-4dc3-b04d-277ef045b5db
+        level: CAN_RUN
+      # Keep your management access
+      - user_name: aamir.mscse@gmail.com
+        level: CAN_MANAGE
+      # Silences the shared folder warning
+      - group_name: users
+        level: CAN_MANAGE
