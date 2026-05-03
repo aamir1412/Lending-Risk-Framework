@@ -7,6 +7,8 @@ resources:
           notebook_task:
             notebook_path: ../../src/notebooks/00_setup/00_bootstrap_env.ipynb            
             source: WORKSPACE
+            libraries:
+            - file: ../src
             base_parameters:
               catalog_name: ${var.catalog_name}
               raw_path: "abfss://raw@${var.storage_account}.dfs.core.windows.net/"
