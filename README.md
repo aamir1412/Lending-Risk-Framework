@@ -1,6 +1,6 @@
 # Lending Risk Framework: Azure Databricks (ADLS Gen2)
 
-### Medallion Architecture | Azure Databricks | Auto Loader | Delta CDF | Spark Structured Streaming - Batch | DABs - GithubAction
+### Medallion Architecture | Azure Databricks | Unity Catalog | Auto Loader | CDF | Spark Structured Streaming - Batch | DABs - GithubAction
 
 This project implements a production-grade data engineering pipeline using the **Medallion Architecture**. It automates the transformation of raw customer data into actionable loan risk scores and grades using **Azure Databricks** and **Unity Catalog**.
 
