@@ -42,18 +42,21 @@ The pipeline follows an idempotent, multi-layer transformation logic to ensure d
 * **Governance:** Managed tables in Unity Catalog with reference table joins.
 
 ---
-
+ 
 ## 📂 Project Structure
 
-As illustrated in the repository:
+The repository is organized to support a modular Medallion Architecture and automated DABs deployment:
 
-* **`src/config/`**: Contains `paths.py` and `schemas.py` for metadata and configuration management.
-* **`src/notebooks/`**: Organized by Medallion stage: `01_bronze`, `02_silver`, and `03_gold`.
-* **`src/utils/`**: Shared utility modules including `audit.py`, `data_quality.py`, `spark_io.py`, and `transformations.py`.
-* **`databricks.yml`**: Configuration for Databricks Asset Bundle deployments.
-* **`assets/`**: Contains tables lineage graph and power BI report images.
-* **`fixtures/`**: Contains project-specific setup or static data files.
-
+```text
+.
+├── src/
+│   ├── config/            # Metadata management (paths.py, schemas.py)
+│   ├── notebooks/         # Medallion stages (01_bronze, 02_silver, 03_gold)
+│   └── utils/             # Shared logic (audit, data_quality, spark_io, transformations)
+├── assets/                # Documentation (Lineage graphs, Power BI screenshots)
+├── fixtures/              # DUMMY place holder for now. -- Project setup and static reference data
+└── databricks.yml         # Configuration for Databricks Asset Bundle (DABs) deployments
+```
 ---
 
 ## 🛡️ Security & Governance
